@@ -111,6 +111,7 @@ public class Rook extends Piece{
         }
     }
 
+    // method to return attack path to king, method is only called on pieces that are attacking King
     public ArrayList<Integer> findKingAttackPath(Piece[] board, String[] attackBoard, int kingPos) {
         //find step parameter to return king attack path
         int current_row = this.pos / 8;
@@ -136,11 +137,17 @@ public class Rook extends Piece{
         for (int i=this.pos; i != kingPos; i += step) {
             kingAttackPath.add(i);
         }
-        //additional attacking squares to account for false safe moves for the king
         kingAttackPath.add(kingPos);
-        if ((kingPos + step) < 64 && (kingPos + step) > -1) {
-            kingAttackPath.add(kingPos + step);
+        //additional attacking square to account for false safe moves for the king in the attackboard
+        int hiddenAttack = kingPos + step;
+        if (hiddenAttack > 63 || hiddenAttack < 0) {    //make sure that hidden attack doesn't go off board
+            return kingAttackPath;
         }
+        int hiddenRow = hiddenAttack / 8;   //make sure that hidden attack is on same row if attacking via row
+        if ((step == 1 || step == -1) && hiddenRow != king_row) {
+            return kingAttackPath;
+        }
+        kingAttackPath.add(hiddenAttack);
         return kingAttackPath;
     }
 

@@ -374,19 +374,11 @@ public class Main {
 
         //if there is no check, then there is no checkmate
         if (!attackBoard[kingPos].contains(enemyColorFlag)) {
-            System.out.println("No check");
             return true;
         }
 
         //checks how many pieces are attacking the king and saves those pieces to a list
         String[] kingPosAttacks = attackBoard[kingPos].split("_");
-
-        //REMOVE
-        for (String s:kingPosAttacks) {
-            System.out.println(s);
-            System.out.println("--");
-        }
-        //REMOVE
 
         ArrayList<Piece> checkingPieces = new ArrayList<>();
         for (String attack:kingPosAttacks) {

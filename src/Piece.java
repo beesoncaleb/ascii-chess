@@ -3,8 +3,6 @@ public abstract class Piece {
 
     static int pieceIdCounter = 0;
 
-    static ArrayList<Integer> piecesMoved;
-
     protected int id;
 
     protected int pos;  //position as index of board array of size 64
@@ -16,8 +14,7 @@ public abstract class Piece {
     Piece(int pos, boolean color) {
         this.pos = pos;
         this.color = color;
-        this.attacks = new ArrayList<Integer>();
-        this.piecesMoved = new ArrayList<Integer>();
+        this.attacks = new ArrayList();
         this.id = pieceIdCounter++;
     }
 
@@ -75,7 +72,7 @@ public abstract class Piece {
             if (current == null) {
                 continue;
             }
-            else if (current.getColor() == this.color && current instanceof King) {
+            if (current.getColor() == this.color && current instanceof King) {
                 return i;
             }
         }

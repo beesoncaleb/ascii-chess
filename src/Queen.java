@@ -212,11 +212,31 @@ public class Queen extends Piece{
         for (int i=this.pos; i != kingPos; i += step) {
             kingAttackPath.add(i);
         }
-        //additional attacking squares to account for false safe moves for the king
         kingAttackPath.add(kingPos);
-        if ((kingPos + step) < 64 && (kingPos + step) > -1) {
-            kingAttackPath.add(kingPos + step);
+        //additional attacking squares to account for false safe moves for the king in the attack board
+        int hiddenAttack = kingPos + step;
+        if (hiddenAttack > 63 || hiddenAttack < 0) {    //check that hidden attack is on board
+            return kingAttackPath;
         }
+        int hiddenRow = hiddenAttack / 8;
+        switch (step) {                                 //check that hidden attack is a valid attack
+            case 1:
+            case -1:
+                if (hiddenRow != king_row) {
+                    return kingAttackPath;
+                }
+                break;
+            case -7:
+            case -9:
+            case 9:
+            case 7:
+                int hiddenCheck = king_row - hiddenRow;
+                if (hiddenCheck == 0 || hiddenCheck == -1 || hiddenCheck == 1) {
+                    return kingAttackPath;
+                }
+                break;
+        }
+        kingAttackPath.add(hiddenAttack);
         return kingAttackPath;
     }
 

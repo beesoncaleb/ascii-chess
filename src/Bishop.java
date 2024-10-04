@@ -53,7 +53,6 @@ public class Bishop extends Piece{
                 updateAttackBoard(board, attackBoard);
                 return -1;
             }
-            piecesMoved.add(0,this.id);
             return 1;
         }
     }
@@ -121,6 +120,7 @@ public class Bishop extends Piece{
         int check = kingPos - this.pos;
         int current_column = this.pos % 8;
         int king_column = kingPos % 8;
+        int king_row = kingPos / 8;
         int step=0;
         if (check > 0 && check % 9 == 0 && king_column > current_column) {
             step = 9;
@@ -140,11 +140,17 @@ public class Bishop extends Piece{
         for (int i=this.pos; i != kingPos; i += step) {
             kingAttackPath.add(i);
         }
-        //additional attacking squares to account for false safe moves for the king
         kingAttackPath.add(kingPos);
-        if ((kingPos + step) < 64 && (kingPos + step) > -1) {
-            kingAttackPath.add(kingPos + step);
+        //additional attacking squares to account for false safe moves for the king
+        int hiddenAttack = kingPos + step;
+        if (hiddenAttack > 63 || hiddenAttack < 0) {    //ensure that hidden attack is on board
+            return kingAttackPath;
         }
+        int hiddenCheck = king_row - (hiddenAttack / 8);    //ensure that hidden attack is valid attack by comparing rows of hidden and king
+        if (hiddenCheck == 0 || hiddenCheck == 2 || hiddenCheck == -2) {
+            return kingAttackPath;
+        }
+        kingAttackPath.add(hiddenAttack);
         return kingAttackPath;
     }
 
