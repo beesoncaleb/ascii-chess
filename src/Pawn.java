@@ -103,7 +103,6 @@ public class Pawn extends Piece {
     @Override
     protected void updateAttacks(Piece[] board) {
         attacks.clear();
-        attacks.add(this.pos);
 
         int row = this.pos / 8;
         int col = this.pos % 8;

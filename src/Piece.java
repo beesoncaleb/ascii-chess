@@ -29,7 +29,7 @@ public abstract class Piece {
     protected void updateAttackBoard(Piece[] board, String[] attackBoard) {
         //clear attackboard so that it can be updated
         for (int i=0; i<64; i++) {
-            attackBoard[i] = null;
+            attackBoard[i] = "";
         }
 
         //update all pieces attacking squares
@@ -47,12 +47,7 @@ public abstract class Piece {
             for(int attacking:current.getAttacks()) {
                 String thisID = Integer.toString(current.getId());
                 String color_flag = current.getColor() ? "+" : "-";
-                if (attackBoard[attacking] == null) {
-                    attackBoard[attacking] = color_flag + thisID + "_";
-                }
-                else {
-                    attackBoard[attacking] += color_flag + thisID + "_";
-                }
+                attackBoard[attacking] += color_flag + thisID + "_";
             }
         }
     }

@@ -75,7 +75,6 @@ public class Knight extends Piece{
     @Override
     protected void updateAttacks(Piece[] board) {
         attacks.clear();
-        attacks.add(this.pos);
         int current_row = this.pos / 8;
         int row1 = current_row - 2;
         int row2 = current_row - 1;

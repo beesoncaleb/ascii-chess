@@ -1,4 +1,5 @@
 import java.util.*;
+import javax.security.auth.callback.TextOutputCallback;
 
 public class Main {
     public static void main(String[] args) {
@@ -215,7 +216,7 @@ public class Main {
 
     public static void initializeAttackBoard (String[] attackBoard, Piece[] board) {
         for (String attacking: attackBoard) {
-            attacking = null;
+            attacking = "";
         }
 
         //update all pieces attacking squares
@@ -233,12 +234,7 @@ public class Main {
             for(int attacking:current.getAttacks()) {
                 String thisID = Integer.toString(current.getId());
                 String color_flag = current.getColor() ? "+" : "-";
-                if (attackBoard[attacking] == null) {
-                    attackBoard[attacking] = color_flag + thisID + "_";
-                }
-                else {
-                    attackBoard[attacking] += color_flag + thisID + "_";
-                }
+                attackBoard[attacking] += color_flag + thisID + "_";
             }
         }
     }
@@ -431,16 +427,17 @@ public class Main {
             }
         }
 
-        //refine grid to only positions that king can move to by removing friendly occupied pieces
-        for (int i=0; i<kingGrid.size(); i++) {
-            int position = kingGrid.get(i);
+        //refine grid to only positions that king can move to by removing friendly occupied spaces
+        ArrayList<Integer> removals = new ArrayList();
+        for (int position:kingGrid) {
             if (board[position] == null) {
                 continue;
             }
             if (board[position].getColor() == color) {
-                kingGrid.remove(Integer.valueOf(position));     //have to pass value as Integer so it won't try to remove by index
+                removals.add(position);
             }
         }
+        kingGrid.removeAll(removals);
 
         //check if king's possible moves contains a safe move for the king, if it does then there is no checkmate
         for (int pos:kingGrid) {
@@ -458,11 +455,10 @@ public class Main {
         }
 
         //there is only one Piece checking king, this code checks that attack path to see if it can be disrupted
-        boolean noCheckmate = false;
         Piece checkPiece = checkingPieces.get(0);
         ArrayList<Integer> kingAttackPath = checkPiece.findKingAttackPath(board, attackBoard, kingPos);
 
-        //trim king attack path to remove hidden attack and king attack, attack disruption can not occur at those locations
+        //trim king attack path to remove hidden attack and king attack
         int attackLastIndex = kingAttackPath.size() - 1;
         kingAttackPath.remove(attackLastIndex);
         attackLastIndex -= 1;
@@ -470,17 +466,22 @@ public class Main {
             kingAttackPath.remove(attackLastIndex);
             attackLastIndex -= 1;
         }
-        for (int i=0; i != attackLastIndex; i++) {
+
+        //checks for disruption, if found then return true that there is checkmate
+        for (int i=0; i <= attackLastIndex; i++) {
             int currentPos = kingAttackPath.get(i);
             String[] attacks = attackBoard[currentPos].split("_");
+            if (attacks[0] == "") {     //skip spots that are not being attacked
+                continue;
+            }
             for (String attack:attacks) {
                 int attackID = Integer.parseInt(attack.substring(1));
                 if (attack.contains(friendlyColorFlag) && attackID != kingID) {
-                    noCheckmate = true;
+                    return false;
                 }
             }
         }
 
-        return noCheckmate;
+        return true;
     }
 }

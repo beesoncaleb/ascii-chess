@@ -61,7 +61,6 @@ public class Bishop extends Piece{
     @Override
     protected void updateAttacks(Piece[] board) {
         attacks.clear();
-        attacks.add(this.pos);
         int current_row = this.pos / 8;
         int current_column = this.pos % 8;
 

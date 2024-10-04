@@ -64,7 +64,6 @@ public class Rook extends Piece{
     @Override
     protected void updateAttacks(Piece[] board) {
         attacks.clear();
-        attacks.add(this.pos);
         int row = this.pos / 8;
 
         //adds all attacking squares to the right of rook

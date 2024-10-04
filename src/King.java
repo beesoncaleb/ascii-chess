@@ -40,7 +40,7 @@ public class King extends Piece{
     @Override
     protected void updateAttacks(Piece[] board)  {
         attacks.clear();
-        int[] steps = {-9,-8,-7,-1,0,1,7,8,9};
+        int[] steps = {-9,-8,-7,-1,1,7,8,9};
         for (int step:steps) {
             int pos = this.pos + step;
             if (pos > 63 || pos < 0) {
@@ -57,7 +57,6 @@ public class King extends Piece{
                     }
                     break;
                 case -1:
-                case 0:
                 case 1:
                     if (posRow == kingRow) {
                         attacks.add(pos);
