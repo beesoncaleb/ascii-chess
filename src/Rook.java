@@ -5,6 +5,7 @@ public class Rook extends Piece{
         super(pos,color);
     }
 
+    @Override
     public int move(int coord, Piece[] board, String[] attackBoard) {
         if (coord > 63 || coord < 0 || this.pos == coord) {
             return -1;
@@ -60,6 +61,7 @@ public class Rook extends Piece{
         }
     }
 
+    @Override
     protected void updateAttacks(Piece[] board) {
         attacks.clear();
         attacks.add(this.pos);
@@ -112,6 +114,7 @@ public class Rook extends Piece{
     }
 
     // method to return attack path to king, method is only called on pieces that are attacking King
+    @Override
     public ArrayList<Integer> findKingAttackPath(Piece[] board, String[] attackBoard, int kingPos) {
         //find step parameter to return king attack path
         int current_row = this.pos / 8;

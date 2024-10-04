@@ -6,6 +6,7 @@ public class Knight extends Piece{
         super(pos,color);
     }
 
+    @Override
     public int move(int coord, Piece[] board, String[] attackBoard) {
         if (coord > 63 || coord < 0 || coord == this.pos) {
             return -1;
@@ -71,6 +72,7 @@ public class Knight extends Piece{
         }
     }
 
+    @Override
     protected void updateAttacks(Piece[] board) {
         attacks.clear();
         attacks.add(this.pos);
@@ -117,6 +119,7 @@ public class Knight extends Piece{
         }
     }
 
+    @Override
     public ArrayList<Integer> findKingAttackPath(Piece[] board, String[] attackBoard, int kingPos) {
         return new ArrayList<>(Arrays.asList(this.pos,kingPos));
     }

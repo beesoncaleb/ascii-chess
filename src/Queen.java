@@ -4,6 +4,7 @@ public class Queen extends Piece{
         super(pos,color);
     }
 
+    @Override
     public int move(int coord, Piece[] board, String[] attackBoard) {
         if (coord > 63 || coord < 0 || this.pos == coord) {
             return -1;
@@ -71,6 +72,7 @@ public class Queen extends Piece{
         }
     }
 
+    @Override
     protected void updateAttacks(Piece[] board) {
         this.attacks.clear();
         this.attacks.add(this.pos);
@@ -174,6 +176,7 @@ public class Queen extends Piece{
         }
     }
 
+    @Override
     public ArrayList<Integer> findKingAttackPath(Piece[] board, String[] attackBoard, int kingPos) {
         //find step parameter to return king attack path
         int check = kingPos - this.pos;

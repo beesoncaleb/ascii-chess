@@ -1,7 +1,5 @@
 # Current Issues that need to be fixed
 - Checkmate Issue (IndexOutOfBoundsException)
-- Fix findKingAttackPath issue
-    - No checks that hidden attack square is valid
 - Fix infinite loop on piece selection during check
     - When king in check, if selected piece unable to prevent check, then infinite loop occurs
     - Two solutions

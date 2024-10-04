@@ -5,6 +5,7 @@ public class Bishop extends Piece{
         super(pos,color);
     }
 
+    @Override
     public int move(int coord, Piece[] board, String[] attackBoard) {
         if (coord > 63 || coord < 0 || coord == this.pos) {
             return -1;
@@ -57,6 +58,7 @@ public class Bishop extends Piece{
         }
     }
 
+    @Override
     protected void updateAttacks(Piece[] board) {
         attacks.clear();
         attacks.add(this.pos);
@@ -115,6 +117,7 @@ public class Bishop extends Piece{
         }
     }
 
+    @Override
     public ArrayList<Integer> findKingAttackPath(Piece[] board, String[] attackBoard, int kingPos) {
         //find step parameter to return king attack path
         int check = kingPos - this.pos;

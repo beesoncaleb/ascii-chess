@@ -4,7 +4,8 @@ public class King extends Piece{
     King(int pos, boolean color, Piece[] board) {
         super(pos,color);
     }
-
+    
+    @Override
     public int move(int coord, Piece[] board, String[] attackBoard) {
         if (coord > 63 || coord < 0 || this.pos == coord) {
             return -1;
@@ -36,6 +37,7 @@ public class King extends Piece{
         }
     }
 
+    @Override
     protected void updateAttacks(Piece[] board)  {
         attacks.clear();
         int[] steps = {-9,-8,-7,-1,0,1,7,8,9};
@@ -73,6 +75,7 @@ public class King extends Piece{
     }
 
     //this method should never be called on a King Piece
+    @Override
     public ArrayList<Integer> findKingAttackPath(Piece[] board, String[] attackBoard, int kingPos) {
         return null;
     }

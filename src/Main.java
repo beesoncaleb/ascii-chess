@@ -318,7 +318,6 @@ public class Main {
                         break;
                     default:
                         System.out.println("That is not a correct input, your input should be one of the follow: R H B Q");
-                        continue;
                 }
             }
             else {

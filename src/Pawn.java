@@ -6,6 +6,7 @@ public class Pawn extends Piece {
         super(pos,color);
     }
 
+    @Override
     public int move(int coord, Piece[] board, String[] attackBoard) {
         if (coord > 63 || coord < 0 || this.pos == coord) {
             return -1;
@@ -99,6 +100,7 @@ public class Pawn extends Piece {
         }
     }
 
+    @Override
     protected void updateAttacks(Piece[] board) {
         attacks.clear();
         attacks.add(this.pos);
@@ -138,6 +140,7 @@ public class Pawn extends Piece {
         }
     }
 
+    @Override
     public ArrayList<Integer> findKingAttackPath(Piece[] board, String[] attackBoard, int kingPos) {
         return new ArrayList<>(Arrays.asList(this.pos,kingPos));
     }
