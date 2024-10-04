@@ -431,14 +431,14 @@ public class Main {
             }
         }
 
-        //refine grid to only positions that king can move to
+        //refine grid to only positions that king can move to by removing friendly occupied pieces
         for (int i=0; i<kingGrid.size(); i++) {
             int position = kingGrid.get(i);
             if (board[position] == null) {
                 continue;
             }
-            if (board[position].getColor() == board[kingPos].getColor()) {
-                kingGrid.remove(position);
+            if (board[position].getColor() == color) {
+                kingGrid.remove(Integer.valueOf(position));     //have to pass value as Integer so it won't try to remove by index
             }
         }
 

@@ -1,5 +1,5 @@
 # Current Issues that need to be fixed
-- Checkmate Issue (IndexOutOfBoundsException)
+- Checkmate isn't fucking working >:( Fool's mate wasn't checkmate with my program
 - Fix infinite loop on piece selection during check
     - When king in check, if selected piece unable to prevent check, then infinite loop occurs
     - Two solutions
